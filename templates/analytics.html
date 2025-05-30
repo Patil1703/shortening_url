@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>📊 URL Analytics</h1>
+
+        <table>
+            <tr>
+                <th>Original URL</th>
+                <th>Short URL</th>
+                <th>click_count</th>
+                <th>Date</th>
+                
+            </tr>
+            {% for short_code, long_url, click_count, created_at in urls %}
+
+
+            <tr>
+                <td><a href="{{ long_url }}" target="_blank">{{ long_url }}</a></td>
+                <td>
+                    <a href="{{ url_for('redirect_short_url', short_code=short_code) }}">
+
+                        {{ request.host_url }}{{ short_code }}
+                    </a>
+                </td>
+                <td>{{ click_count }}</td>
+                <td>{{ created_at }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br><a href="{{ url_for('index') }}" class="button">← Back to Shortener</a>
+    </div>
