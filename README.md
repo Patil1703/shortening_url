@@ -1,51 +1,58 @@
 URL shortening web app
 
 Features:
-1. 
+1.  Shortens long URLs into short codes.
+2.  Click count tracking for each shortened link.
+3.  Analytics page to view all URLs and statistics.
+4.  Input validation to prevent invalid or duplicate entries.
+5.  Persistent storage using SQLite.
+
 
 Background:
-I wasn’t familiar with Flask-SQLAlchemy, but chose it because it helps abstract DB interactions. 
-I read through its official docs and used simple examples to test first 
-Since there is a requirement of using SQLite I've thought flask would be a better option
-So, first i started off researching about flask first since it is the base of our application 
-I got to know that it also offers security features such as auto-escaping and sandboxing
-I learnt about HTML injections that are Post and Get
+
+I wasn’t familiar with Flask-SQLAlchemy but chose it because it helps abstract database interactions.
+I read through the official documentation and first tested some simple examples.
+Since the requirement was to use SQLite, Flask would be a better option.
+So, I started by researching Flask first, as it is the foundation of our application.
+I learned that Flask also offers security features such as auto-escaping and sandboxing.
+Additionally, I learned about HTML injection vulnerabilities related to POST and GET requests.
 
 
-Working of the project:
-1. First I've imported flask, Created a function to accept long URLs, app.route(we will be using dynamic routing)
-2. While i faced errors to connect html file to python file i got to know that there is a library "render_template" that connects them
-3. I've started with methods Get and Post
-4. '/' represents home page
-5. I simultaneously created a html index page
-6. created a form accepting long URLs and created buttons
-7. to read data from html we need a library called "request". There is also a library url_for that builds URLs.
-8. By googling I've found out that flask has a method to validate URL and implementing it.
-9. While running the app wasn't opening in browser so i had to again search how to connect flask to localhost. Implemented it
-10. My code had no errors but while running the app i found error on local host
-11. I asked chatgpt to help me fix with the eroor giving it the code i've generated until now
-12. The mistake I did was to place the validator method inside the route 
-13. While fixing the errors with help of chatGPT, It also taught me usage of a new function that is redirect, used to navigate between different
-pages and preventing double-submissions.
-14. I thought, How could we let the user know that the URL they've given is valid and we are performing the action of shortening it? If the URL is
-invalid only we would know!
-15. i have googled a way to pop a message or like an alert in HTML, in flask we do have a method that is called "flash"
-16. I tried to run the program again and found myself with an error "jinja2.exceptions.TemplateNotFound: index.html" it said i had to add templates folder
-17. After running the code again I found an error which was a flash message ("success: URL is valid! (but not yet shortened")). Which was just indentation 
-error
-18. While running the code was taking inputs but was not giving output, now i started working on connecting database
-19. Now i have created a function to generate a short code taking length of 6 and providing ascii codes and digits
-20. I have created a redirect function that allows my shortened url to connect to the long url destination.
-21. I am now trying to connect SQLite to my flask code.
-22. Downloaded the database. We would be needing, a primary key, long url, short url columns in our database
-23. Creating a function to connect database so that everytime there is an input, it gets stored in the database.
-24, creating a cursor method to implement sql commands
-25. after connecting the databse now I am creating a Analytics dashboard
-26. Now connected the databse to analytics html code.
-27. After trying to run the code again there is not database table shown or the short url is opening.
-28. I am trying to print all the tables from databse using print statement and creating a function
-29. My web page constantly started showing ShortURL not found, took help of gemeni AI, asking what could be the problems for such error
-30. started revisiting redirect function and analytics html, found a syntax error.
-31. fixed the syntax error where in app.py (short_code,long_url) but in analytics(long_url,short_code) so there was an error in connection
-32. Now to implement click counts, i have googled and found an article in medium but was unable to read but found the the woord "link tracker in flask"
-then i googled 
+Project Workflow:
+
+1. I began by importing Flask and creating a function to accept long URLs, using 'app.route' with dynamic routing.
+2. Initially, I encountered errors when trying to connect the HTML file to the Python script. I discovered the 'render_template' function, which facilitates this connection.
+3. I started implementing HTTP methods GET and POST.
+4. The '/' route was set to represent the home page.
+5. Simultaneously, I created the HTML index page.
+6. The index page included a form to accept long URLs along with buttons for submission.
+7. I used the 'request' library to read data submitted from HTML. Additionally, I utilized 'url_for' to build URLs dynamically.
+8. Through research, I learned that Flask provides methods to validate URLs, which I then implemented.
+9. When the app did not open automatically in the browser, I researched how to connect Flask to localhost and implemented the solution.
+10. Although my code had no syntax errors, running the app resulted in errors on localhost.
+11. I sought assistance from ChatGPT by providing the current state of my code and error details.
+12. One identified mistake was placing the URL validator method inside the route function, which I corrected.
+13. While fixing errors with ChatGPT’s help, I learned to use the 'redirect' function to navigate between pages and prevent form resubmission.
+14. I considered how to inform users when their URL is valid and shortening is in process, as invalid URLs were only known internally.
+15. I researched how to display messages or alerts like in HTML and learned about Flask’s 'flash' method for this purpose.
+16. Running the program again, I encountered a 'jinja2.exceptions.TemplateNotFound: index.html'  error, which was resolved by adding a 'templates' folder.
+17. Another issue was an indentation error causing a flash message ("success: URL is valid! (but not yet shortened)"), which I fixed.
+18. The program accepted input but did not produce output, so I started working on database integration.
+19. I created a function to generate a short code of length 6 using ASCII letters and digits.
+20. I implemented a redirect function that maps shortened URLs to their original long URL destinations.
+21. I began connecting SQLite with my Flask application.
+22. After downloading SQLite, I identified the need for database columns such as primary key, long URL, and short URL.
+23. I wrote a function to connect to the database and store inputs on each submission.
+24. I used a cursor to execute SQL commands.
+25. Once the database connection was established, I started working on an analytics dashboard.
+26. I connected the database data to the analytics HTML page.
+27. Running the code showed no database table or short URL functionality initially.
+28. I created a function to print all database tables for debugging purposes.
+29. The webpage frequently showed “Short URL not found.” I consulted Gemini AI to identify potential causes.
+30. Upon review, I found syntax errors in the redirect function and analytics HTML template.
+31. Specifically, mismatched variable unpacking between '(short_code, long_url)' in 'app.py' and '(long_url, short_code)' in 'analytics.html' caused issues, which I corrected.
+32. To implement click counts, I searched for “link tracker in Flask” and followed relevant tutorials.
+33. I found a helpful tutorial on DigitalOcean and cross-checked it with my code, leveraging both Google and ChatGPT for assistance.
+34. After updating the code, the click count was not incrementing initially, so I added an SQL increment query within the redirect method.
+35. I corrected spelling mistakes and other syntax errors that arose.
+36. After successfully implementing click counts, I proceeded to add a creation date for each shortened URL.
