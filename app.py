@@ -38,16 +38,23 @@ def index():
             flash("Invalid URL. Please include http:// or https://", "error")
             return redirect(url_for('index'))
         
-        short_code = generate_short_code()
-        created_at =datetime.now()
-
-        # Save into DB
         conn = sqlite3.connect('url.db')
         c = conn.cursor()
-        c.execute("INSERT INTO urls (short_code, long_url, click_count, created_at) VALUES (?, ?, ?, ?)",(short_code, long_url, 0, created_at))
-
-        conn.commit()
+        c.execute("SELECT short_code FROM urls WHERE long_url = ?", (long_url,))
+        existing = c.fetchone()
+        if existing:
+            short_code = existing[0]
+        else:
+            short_code = generate_short_code()
+            created_at =datetime.now()
+            c.execute("INSERT INTO urls (short_code, long_url, click_count, created_at) VALUES (?, ?, ?, ?)", 
+              (short_code, long_url, 0, created_at))
+            conn.commit()
         conn.close()
+
+        
+
+        
         
         short_url = request.host_url + short_code  # this is the full short URL
 
