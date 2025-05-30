@@ -7,19 +7,22 @@ Features:
 4.  Input validation to prevent invalid or duplicate entries.
 5.  Persistent storage using SQLite.
 
+
+Structure:
+
 shortening_url/                 # Root project folder
-│
-├── app.py                     # Main Flask application code
-├── url.db                     # SQLite database file (can be created on first run)
-│
-├── static/                    # Folder for static assets like CSS, JS, images
-│   └── styles.css             # CSS stylesheet for styling your pages
-│
-├── templates/                 # HTML templates folder (Flask expects this name)
-│   ├── index.html             # Homepage with URL form and short URL display
-│   └── analytics.html         # Analytics dashboard page showing URLs and stats
-│
-├── README.md    
+  app.py                     # Main Flask application code
+  url.db                     # SQLite database file (can be created on first run)
+  
+static/                    # Folder for static assets like CSS, JS, images
+  styles.css             # CSS stylesheet for styling your pages
+  
+templates/                 # HTML templates folder (Flask expects this name)
+  index.html             # Homepage with URL form and short URL display
+  analytics.html         # Analytics dashboard page showing URLs and stats
+  
+README.md    
+
 
 Background:
 
