@@ -1,27 +1,20 @@
 URL shortening web app
 
 Features:
-1.  Shortens long URLs into short codes.
-2.  Click count tracking for each shortened link.
-3.  Analytics page to view all URLs and statistics.
-4.  Input validation to prevent invalid or duplicate entries.
-5.  Persistent storage using SQLite.
+1.  Shorten long URLs to a 6-character short code.
+2.  Validate input URLs for correctness.
+3.  Redirect short URLs to their original destinations.
+4.  Track and increment click counts for each short URL.
+5.  Store creation dates for each shortened URL.
+6.  Simple analytics dashboard to view URLs, clicks, and creation dates.
+7.  Flash messages for user feedback on URL submission.
 
+Technologies Used
 
-Structure:
-
-shortening_url/                 # Root project folder
-  app.py                     # Main Flask application code
-  url.db                     # SQLite database file (can be created on first run)
-  
-static/                    # Folder for static assets like CSS, JS, images
-  styles.css             # CSS stylesheet for styling your pages
-  
-templates/                 # HTML templates folder (Flask expects this name)
-  index.html             # Homepage with URL form and short URL display
-  analytics.html         # Analytics dashboard page showing URLs and stats
-  
-README.md    
+- Python 3.x
+- Flask
+- SQLite (via 'sqlite3' module)
+- HTML (Jinja2 templating)
 
 
 Background:
